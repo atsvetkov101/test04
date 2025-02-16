@@ -11,7 +11,10 @@
       ],
       "program": "${workspaceFolder}/dist/src/index.js",
       "preLaunchTask": "npm: build",
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "env": {
+        "VERBOSE_LOGGING": "true"
+      }
     },
     {
       "type": "node",
