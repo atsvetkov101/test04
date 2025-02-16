@@ -13,7 +13,7 @@ class GameObjectParams {
 }
 
 export class GameObject implements IMovable, IRotatable, ILocation, IMoving, IUseFuel {
-  position?: Point;IMoving
+  position?: Point;
   velocity?: Vector;
   fuel?: number;
   constructor(params: GameObjectParams = {} as GameObjectParams ) {
