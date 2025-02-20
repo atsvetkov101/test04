@@ -36,7 +36,7 @@ export class InitCommand implements ICommand {
     IoC.init(dependencies);
   }
   getType(): string {
-    throw new Error('Method not implemented.');
+    return 'InitCommand';
   }
 
 }

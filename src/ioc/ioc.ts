@@ -31,15 +31,41 @@ export class IoC{
   }
 
   public static getCurrentScopeDependencies() {
+    if(!IoC.dependencies) {
+      return null;
+    }
+    const currentScopeDependencies = IoC.dependencies.get(IoC.currentScope);
+    if(!currentScopeDependencies) {
+      IoC.dependencies.set(IoC.currentScope, new Map<string, Fn>());
+    }
     return IoC.dependencies.get(IoC.currentScope);
   }
 
-  public static Resolve<T>(dependency: string, ...args) {
-    const records = IoC.getCurrentScopeDependencies();
+  static getRootScopeDependencies() {
+    if(!IoC.dependencies) {
+      return null;
+    }
+    return IoC.dependencies.get(IoC.defaultScope);
+  }
+
+  static getDependency(dependency: string, records: Map<string, Fn>) {
     if(!records){
       return null;
     }
     const func = records.get(dependency);
+    if(!func){
+      return null;
+    }
+    return func;
+  }
+
+  public static Resolve<T>(dependency: string, ...args) {
+    let records = IoC.getCurrentScopeDependencies();
+    let func = IoC.getDependency(dependency, records);
+    if(!func){
+      records = IoC.getRootScopeDependencies();
+      func = IoC.getDependency(dependency, records);
+    }
     if(!func){
       return null;
     }
