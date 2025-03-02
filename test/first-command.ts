@@ -5,6 +5,9 @@ export class FirstCommand implements ICommand {
   constructor(...args){
     this.args = args[0];
   }
+  setTarget(object: any) {
+    throw new Error('Method not implemented.');
+  }
 
   execute(): void {
     throw new Error('Method not implemented.');
