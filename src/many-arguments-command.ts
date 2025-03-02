@@ -5,6 +5,9 @@ export class ManyArgumentsCommand implements ICommand{
   constructor(...args){
     this.constructor_args = args[0];
   }
+  setTarget(object: any) {
+    throw new Error('Method not implemented.');
+  }
   execute(): void {
     // do nothing;
   }

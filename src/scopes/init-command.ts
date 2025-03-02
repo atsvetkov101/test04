@@ -6,6 +6,9 @@ import { TeleportationCommand } from '../teleportation-command';
 import { SetCurrentScopeCommand } from './set-current-scope-command';
 
 export class InitCommand implements ICommand {
+  setTarget(object: any) {
+    throw new Error('Method not implemented.');
+  }
   execute(): void {
     
     const records = new Map<string, Fn>();

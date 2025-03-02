@@ -9,6 +9,9 @@ export class RegisterDependencyCommand implements ICommand{
     this.dependency = dependency;
     this.dependencyResolverStrateqy = dependencyResolverStrateqy;
   }
+  setTarget(object: any) {
+    throw new Error('Method not implemented.');
+  }
   execute(): void {
     // eslint-disable-next-line max-len
     const dependencies:scopeIocDependencies = IoC.getCurrentScopeDependencies();
