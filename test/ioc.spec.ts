@@ -9,11 +9,15 @@ import { ManyArgumentsCommand } from '../src/many-arguments-command';
 import { Vector } from '../src/vector';
 import { InitCommand } from '../src/scopes/init-command';
 import { ICommand } from '../src/interfaces/icommand';
+import { ClearCurrentScopeCommand } from '../src/scopes/clear-current-scope-command';
 
 describe('Тесты для IoC', function() {
   describe('Набор тестов для IoC', function() {
     before(() => {
       new InitCommand().execute();
+    });
+    after(() => {
+      new ClearCurrentScopeCommand().execute();
     });
     it('Метод Resolve без аргументов', function() {
 
