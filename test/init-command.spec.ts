@@ -1,14 +1,12 @@
 import { expect, assert } from 'chai';
 import { IoC } from '../src/ioc/ioc';
-import { main } from '../src';
 import { StraightMoveCommand } from '../src/straight-move-command';
-import { GameObject } from '../src/game-object';
 import { Point } from '../src/point';
-import { TeleportationCommand } from '../src/teleportation-command';
 import { ManyArgumentsCommand } from '../src/many-arguments-command';
 import { Vector } from '../src/vector';
 import { InitCommand } from '../src/scopes/init-command';
 import { ICommand } from '../src/interfaces/icommand';
+import { ClearCurrentScopeCommand } from '../src/scopes/clear-current-scope-command';
 
 describe('Тесты для init-command', function() {
   describe('Набор тестов для init-command', function() {
@@ -27,6 +25,9 @@ describe('Тесты для init-command', function() {
   describe('Набор тестов для init-command #2', function() {
     before(() => {
       new InitCommand().execute();
+    });
+    after(() => {
+      new ClearCurrentScopeCommand().execute();
     });
     it('IoC с инициализацией', function() {
       let straightMoveCommand;
