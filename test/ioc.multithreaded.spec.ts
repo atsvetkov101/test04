@@ -3,6 +3,7 @@ import { IoC } from '../src/ioc/ioc';
 import { InitCommand } from '../src/scopes/init-command';
 import { FirstCommand } from './first-command';
 import { SecondCommand } from './second-command';
+import { ClearCurrentScopeCommand } from '../src/scopes/clear-current-scope-command';
 
 const timeout = 50;
 const setAndCheckScopeFunc = async (scope) => {
@@ -12,7 +13,7 @@ const setAndCheckScopeFunc = async (scope) => {
     const funcId = Math.round(Math.random() * 100000);
     const myTimer = setInterval(() => {
       const currentScope = IoC.Resolve('IoC.Scope.Current');
-      console.log(`func${funcId} iteration:${counter} currentScope:${currentScope}`);
+      // console.log(`func${funcId} iteration:${counter} currentScope:${currentScope}`);
       counter++;
       if(counter > 5){
         clearInterval(myTimer);
@@ -36,7 +37,7 @@ const resolveSomeCommandFunc = async (scope, expectedType) => {
       const type = someCommand.getType();
       types.push(type);
       // eslint-disable-next-line max-len
-      console.log(`func${funcId} iteration:${counter} currentScope:${currentScope} someCommand_Type:${someCommand.getType()}`);
+      // console.log(`func${funcId} iteration:${counter} currentScope:${currentScope} someCommand_Type:${someCommand.getType()}`);
       counter++;
       if(counter > 5){
         clearInterval(myTimer);
@@ -62,7 +63,7 @@ const setScopeResolveSomeCommandFunc = async (scope, expectedType) => {
       const type = someCommand.getType();
       types.push(type);
       // eslint-disable-next-line max-len
-      console.log(`func${funcId} iteration:${counter} currentScope:${currentScope} someCommand_Type:${someCommand.getType()}`);
+      // console.log(`func${funcId} iteration:${counter} currentScope:${currentScope} someCommand_Type:${someCommand.getType()}`);
       counter++;
       if(counter > 5){
         clearInterval(myTimer);
@@ -80,13 +81,16 @@ describe('Тесты для многопоточности для IoC', function
     before(() => {
       new InitCommand().execute();
     });
+    after(() => {
+      new ClearCurrentScopeCommand().execute();
+    });
     it('Одна функция проверяем скоуп. default скоуп', async function() {
 
       const func1 = new Promise((resolve, reject) => {
         let counter = 0;
         const myTimer = setInterval(() => {
           const currentScope = IoC.Resolve('IoC.Scope.Current');
-          console.log(`func1 iteration:${counter} currentScope:${currentScope}`);
+          // console.log(`func1 iteration:${counter} currentScope:${currentScope}`);
           counter++;
           if(counter > 5){
             clearInterval(myTimer);
